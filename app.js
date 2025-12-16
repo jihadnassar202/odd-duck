@@ -9,6 +9,8 @@ function Product(name, filename) {
 let currentImages = [];
 let totalVotes = 0;
 const rounds = 25;
+let selectedImages = [];
+let resultsChart = null;
 let images = [
     new Product('odd duck 1', 'image copy 1.png'),
     new Product('odd duck 2', 'image copy 2.png'),
@@ -30,7 +32,7 @@ let images = [
     new Product('odd duck 18', 'image copy 18.png'),
 ];
 
-function getThreeRandomImages() { //returns an array of three random images
+function getThreeRandomImages() { //returns an array of three unique random images
     const randomImages = images.slice().sort(() => Math.random() - 0.5).slice(0, 3);
     randomImages.forEach(image => image.timesShown++);
     return randomImages;
@@ -55,17 +57,35 @@ function handleVote(imgId) {
     totalVotes++;
     if (totalVotes >= rounds) {
         disableButtons();
-
+        document.getElementById('reset-button').disabled = false;
     } else {
         renderImages();
     }
 }
-function showResults() {
-    const results = images.map(image => {
-        const rate = image.timesShown ? (image.clicks / image.timesShown) * 100 : 0;
-        return `<div>${image.name}:${image.clicks} clicks, shown ${image.timesShown} times, rate ${rate.toFixed(2)}%</div>`;
-    }).join('');
-    document.getElementById('results-list').innerHTML = results;
+function showResults() {    
+    if(resultsChart) {
+        resultsChart.destroy();
+    }
+    resultsChart = new Chart(document.getElementById('results-chart'), {
+        type: 'bar',
+        data: {
+            labels: images.map(image => image.name),
+            datasets: [{
+                label: 'Clicks',
+                data: images.map(image => image.clicks),
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1,
+            },
+            {
+                label: 'Votes',
+                data: images.map(image => image.timesShown),
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1,
+            }],
+        },
+    });
 }
 renderImages();
 document.getElementById('vote-button1').addEventListener('click', () => handleVote(0));
@@ -76,6 +96,9 @@ document.getElementById('show-results').disabled = true;
 
 function reset() {
     totalVotes = 0;
+    if(resultsChart) {
+        resultsChart.destroy();
+    }
     images.forEach(image => {
         image.clicks = 0;
         image.timesShown = 0;
