@@ -1,9 +1,10 @@
 'use strict';
+
 //store the data for each product in json file
-localStorage.setItem('images', JSON.stringify([]));
+// localStorage.setItem('images', JSON.stringify([]));
 let currentImages = [];
 let totalVotes = 0;
-let rounds = 25;
+let rounds = 5;
 let selectedImages = [];
 let resultsChart = null;
 let images = [];
@@ -44,6 +45,7 @@ function handleVote(imgId) {
     totalVotes++;
     if (totalVotes >= rounds) {
         disableButtons();
+        localStorage.setItem('images', JSON.stringify(images));
         document.getElementById('reset-button').disabled = false;
     } else {
         renderImages();
