@@ -62,7 +62,7 @@ function handleVote(imgId) {
 }
 function showResults() {
     const results = images.map(image => {
-        const rate = image.timesShown ? (image.clicks / totalVotes) * 100 : 0;
+        const rate = image.timesShown ? (image.clicks / image.timesShown) * 100 : 0;
         return `<div>${image.name}:${image.clicks} clicks, shown ${image.timesShown} times, rate ${rate.toFixed(2)}%</div>`;
     }).join('');
     document.getElementById('results-list').innerHTML = results;
