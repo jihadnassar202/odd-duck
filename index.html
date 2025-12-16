@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <title>Odd Duck</title>
 </head>
@@ -15,11 +16,31 @@
         <p>Select your favorite images from the three below</p>
     </header>
     <main>
-        <section>
-            
+        <section id="main-container">
+            <div class="image-container">
+                <div id="image-1-container">
+                    <img id="image-1" src="" alt="Image 1">
+                    <button id="vote-button1">Vote for Image 1</button>
+                </div>
+                <div id="image-2-container">
+                    <img id="image-2" src="" alt="Image 2">
+                    <button id="vote-button2">Vote for Image 2</button>
+                </div>
+                <div id="image-3-container">
+                    <img id="image-3" src="" alt="Image 3">
+                    <button id="vote-button3">Vote for Image 3</button>
+                </div>
+            </div>
+            <button id="reset-button">Reset</button>
+            <div id="results-container">
+                <button id="show-results" disabled>Show Results</button>
+                <div id="results-list">
+                </div>
+            </div>
+        </section>
     </main>
     <footer>
-        <p>&copy; 2025 Odd Duck. All rights reserved.</p>
+        <p>© 2025 Odd Duck. All rights reserved.</p>
     </footer>
     <script src="app.js"></script>
 </body>

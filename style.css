@@ -6,6 +6,8 @@ body {
 }
 
 header {
+    display: inline-block;
+    width: 100%;
     background-color: #333;
     color: #fff;
     padding: 20px;
@@ -15,14 +17,79 @@ header {
 main {
     padding: 20px;
 }
+.image-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.image-container div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+#reset-button {
+    
+    background-color: #0015ff;
+    color: #fff;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+#image-1, #image-2, #image-3 {
+    width: 200px;
+    height: 200px;
+}
+#results-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#vote-button1, #vote-button2, #vote-button3 {
+    background-color: #05a100;
+    color: #ffffff;
+    margin: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    &:hover {
+        scale: 1.05;
+        background-color: #0487009f;
+        color: #ffffff;
+    }
+}
+
+#show-results {
+    background-color: #ff0000;
+    color: #fff;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+
+    &:hover {
+        background-color: #da0404;
+        color: #fff;
+    }
+}
 
 footer {
-    position: fixed;
-    bottom:0px;
+   
+    margin-top: auto;
     width: 100%;
-    background-color: #333;
+    background-color: #cf750f;
     color: #fff;
     padding: 20px;
     text-align: center;
 }
-
