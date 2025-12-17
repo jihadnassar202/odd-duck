@@ -1,17 +1,17 @@
 'use strict';
 
-//store the data for each product in json file
-// localStorage.setItem('images', JSON.stringify([]));
 let currentImages = [];
 let totalVotes = 0;
-let rounds = 5;
-let selectedImages = [];
+let rounds = 25;
 let resultsChart = null;
 let images = [];
+//const stored= localStorage.getItem('images');
 fetch('products.json')
     .then(response => response.json())
     .then(data => {
-        images = data;
+        data.forEach(item => {
+            images.push({ name: item.name, filepath: item.filepath, clicks: 0, timesShown: 0 });
+        });
         renderImages();
         document.getElementById('vote-button1').addEventListener('click', () => handleVote(0));
         document.getElementById('vote-button2').addEventListener('click', () => handleVote(1));
@@ -20,7 +20,7 @@ fetch('products.json')
         document.getElementById('show-results').disabled = true;
     });
 
-function getThreeRandomImages() { //returns an array of three unique random images
+function getThreeRandomImages() { //returns an array of three random images
     const randomImages = images.slice().sort(() => Math.random() - 0.5).slice(0, 3);
     randomImages.forEach(image => image.timesShown++);
     return randomImages;
