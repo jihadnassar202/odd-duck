@@ -6,6 +6,7 @@ function Product(name, filename) {
     this.timesShown = 0;
     this.clicks = 0;
 }
+let previousImages = [];
 let currentImages = [];
 let totalVotes = 0;
 const rounds = 25;
@@ -32,8 +33,18 @@ let images = [
     new Product('odd duck 18', 'image copy 18.png'),
 ];
 
+
 function getThreeRandomImages() { //returns an array of three unique random images
-    const randomImages = images.slice().sort(() => Math.random() - 0.5).slice(0, 3);
+    let chosenNumbers = [];//array to store the chosen numbers
+    while (chosenNumbers.length < 3) {
+        let randomNum = Math.floor(Math.random() * images.length);
+        if (chosenNumbers.includes(randomNum) || previousImages.includes(randomNum)) {
+            continue;
+        }
+        chosenNumbers.push(randomNum);
+    }
+    previousImages = chosenNumbers.slice();//store the chosen numbers in the previous images array
+    let randomImages = chosenNumbers.map(num => images[num]);
     randomImages.forEach(image => image.timesShown++);
     return randomImages;
 }
@@ -62,8 +73,8 @@ function handleVote(imgId) {
         renderImages();
     }
 }
-function showResults() {    
-    if(resultsChart) {
+function showResults() {
+    if (resultsChart) {
         resultsChart.destroy();
     }
     resultsChart = new Chart(document.getElementById('results-chart'), {
@@ -78,7 +89,7 @@ function showResults() {
                 borderWidth: 1,
             },
             {
-                label: 'Votes',
+                label: 'times shown',
                 data: images.map(image => image.timesShown),
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
                 borderColor: 'rgba(255, 99, 132, 1)',
@@ -96,7 +107,7 @@ document.getElementById('show-results').disabled = true;
 
 function reset() {
     totalVotes = 0;
-    if(resultsChart) {
+    if (resultsChart) {
         resultsChart.destroy();
     }
     images.forEach(image => {
